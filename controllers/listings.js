@@ -14,15 +14,20 @@ const createListing = async (req, res) => {
   // Guarantee owner exists
   newListing.owner = req.user ? req.user._id : "65c3b1740989f668393e8bf0";
 
-  // Use req.file if uploaded, otherwise use placeholder as instructed
+  // Use req.file if uploaded, otherwise use the body url or placeholder
   if (req.file) {
     newListing.image = {
       url: req.file.path,
       filename: req.file.filename,
     };
-  } else {
+  } else if (!req.body.listing.image || !req.body.listing.image.url) {
     newListing.image = {
       url: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1000",
+      filename: "listingimage",
+    };
+  } else {
+    newListing.image = {
+      url: req.body.listing.image.url,
       filename: "listingimage",
     };
   }
@@ -68,6 +73,12 @@ const updateListing = async (req, res) => {
     listing.image = {
       url: req.file.path,
       filename: req.file.filename,
+    };
+    await listing.save();
+  } else if (req.body.listing && req.body.listing.image && req.body.listing.image.url) {
+    listing.image = {
+      url: req.body.listing.image.url,
+      filename: "listingimage",
     };
     await listing.save();
   }

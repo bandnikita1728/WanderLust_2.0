@@ -42,17 +42,32 @@ app.use(methodOverride("_method"));
 
 // 4. session config
 const secret = process.env.SECRET || "mysupersecretcode";
-const store = MongoStore.create({
-  mongoUrl: dbUrl,
-  crypto: {
-    secret: secret,
-  },
-  touchAfter: 24 * 3600,
-});
+let store;
 
-store.on("error", (err) => {
-  console.log("Mongo Store connection error recorded: database fallback is active.", err.message);
-});
+const hasRealDb = process.env.ATLASDB_URL && 
+  (process.env.ATLASDB_URL.startsWith("mongodb://") || process.env.ATLASDB_URL.startsWith("mongodb+srv://"));
+
+if (hasRealDb) {
+  try {
+    store = MongoStore.create({
+      mongoUrl: dbUrl,
+      crypto: {
+        secret: secret,
+      },
+      touchAfter: 24 * 3600,
+    });
+    
+    store.on("error", (err) => {
+      console.log("Mongo Store connection error recorded: database fallback is active.", err.message);
+    });
+  } catch (error) {
+    console.warn("Could not initialize MongoStore, falling back to MemoryStore:", error.message);
+    store = new session.MemoryStore();
+  }
+} else {
+  console.log("[SessionStore] No ATLASDB_URL provided. Using high-performance MemoryStore fallback.");
+  store = new session.MemoryStore();
+}
 
 const sessionConfig = {
   store: store,
@@ -103,6 +118,9 @@ app.all("*", (req, res, next) => {
 
 // 10. error handler middleware
 app.use((err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
   const { statusCode = 500, message = "Something went wrong" } = err;
   res.status(statusCode).render("error.ejs", { message });
 });

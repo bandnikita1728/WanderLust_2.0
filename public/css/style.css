@@ -1,4 +1,51 @@
 /* WanderLust Stylesheet */
 body {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
+  padding-top: 90px; /* Cushion space for fixed-top beachy navbar */
 }
+
+/* Premium Light Beach/Coastal Navbar Theme */
+.beachy-navbar {
+  background: linear-gradient(135deg, #f4fbfb 0%, #e0f2f1 10%, #e0f7fa 100%) !important;
+  box-shadow: 0 4px 15px rgba(14, 79, 95, 0.08) !important;
+  transition: all 0.3s ease;
+}
+
+.beachy-navbar .navbar-brand {
+  font-size: 1.35rem;
+  letter-spacing: -0.5px;
+  color: #0c5a6c !important; /* Deep sea teal for crisp contrast */
+}
+
+.beachy-navbar .nav-link {
+  font-weight: 600;
+  color: #116b7d !important; /* Gentle coastal blue-teal */
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.beachy-navbar .nav-link:hover {
+  color: #ef476f !important; /* Highlights warm coral-pink on hover */
+  transform: translateY(-1px);
+}
+
+/* Premium Light Beach/Coastal Footer Theme */
+.beachy-footer {
+  background: linear-gradient(135deg, #f4fbfb 0%, #e0f2f1 10%, #e0f7fa 100%) !important;
+  box-shadow: 0 -4px 15px rgba(14, 79, 95, 0.04) !important;
+  color: #116b7d !important;
+}
+
+.beachy-footer .text-muted-beach {
+  color: #648d94 !important;
+}
+
+.beachy-footer a {
+  color: #116b7d !important;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.beachy-footer a:hover {
+  color: #ef476f !important;
+}
+

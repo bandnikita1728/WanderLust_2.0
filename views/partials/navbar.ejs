@@ -1,15 +1,39 @@
-<nav class="navbar navbar-expand-md bg-white border-bottom sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand text-danger fw-semibold" href="/">WanderLust</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-md navbar-light beachy-navbar fixed-top mb-0 shadow">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="/listings">
+      <span class="fs-4 me-2">🌍</span> <span class="fw-bold tracking-tight">WanderLust</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#listingsNavbar" aria-controls="listingsNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
+    <div class="collapse navbar-collapse" id="listingsNavbar">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link" href="/listings"><i class="fa-solid fa-compass me-1"></i>Explore</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/listings/new"><i class="fa-solid fa-plus me-1"></i>Add Listing</a>
         </li>
       </ul>
+      <div class="d-flex align-items-center">
+        <ul class="navbar-nav mb-2 mb-md-0">
+          <% if (currentUser) { %>
+            <li class="nav-item">
+              <span class="nav-link text-dark me-3"><i class="fa-solid fa-user text-danger me-1"></i><%= currentUser.username %></span>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-dark btn-sm rounded-pill px-3 py-1" href="/logout"><i class="fa-solid fa-right-from-bracket me-1"></i>Logout</a>
+            </li>
+          <% } else { %>
+            <li class="nav-item me-2">
+              <a class="nav-link" href="/login"><i class="fa-solid fa-right-to-bracket me-1"></i>Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-danger btn-sm rounded-pill px-3 py-1" href="/signup"><i class="fa-solid fa-user-plus me-1"></i>Signup</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

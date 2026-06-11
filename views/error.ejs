@@ -1,9 +1,21 @@
 <% layout("layouts/boilerplate") %>
-<div class="row mt-4">
-  <div class="col-8 offset-2">
-    <div class="alert alert-danger" role="alert">
-      <h4 class="alert-heading">An Error Occurred!</h4>
-      <p class="mb-0"><%= message %></p>
+<div class="row min-vh-50 align-items-center py-5">
+  <div class="col-md-8 offset-md-2 col-12 text-center">
+    <div class="card border-0 shadow-lg p-5 rounded-4 bg-white border-top border-5 border-danger">
+      <div class="card-body">
+        <div class="display-1 text-danger mb-4">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h2 class="fw-bold mb-3 text-dark">Something Went Wrong!</h2>
+        
+        <p class="lead text-secondary mb-4 bg-light p-4 rounded-3 border text-break font-monospace" style="font-size: 1.1rem;">
+          <%= message %>
+        </p>
+
+        <a href="/listings" class="btn btn-danger px-5 py-3 rounded-pill fw-bold shadow">
+          <i class="fa-solid fa-house me-2"></i>Go back to Listings
+        </a>
+      </div>
     </div>
   </div>
 </div>

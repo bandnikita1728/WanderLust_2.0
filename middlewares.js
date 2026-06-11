@@ -25,7 +25,7 @@ module.exports.saveRedirectUrl = (req, res, next) => {
 module.exports.isOwner = async (req, res, next) => {
   const { id } = req.params;
   const listing = await Listing.findById(id);
-  if (listing && listing.owner && req.user && !listing.owner._id.equals(req.user._id)) {
+  if (listing && listing.owner && req.user && String(listing.owner._id || listing.owner) !== String(req.user._id)) {
     req.flash("error", "You do not have permission to do that.");
     return res.redirect(`/listings/${id}`);
   }
@@ -35,7 +35,7 @@ module.exports.isOwner = async (req, res, next) => {
 module.exports.isReviewAuthor = async (req, res, next) => {
   const { id, reviewId } = req.params;
   const review = await Review.findById(reviewId);
-  if (review && review.author && req.user && !review.author._id.equals(req.user._id)) {
+  if (review && review.author && req.user && String(review.author._id || review.author) !== String(req.user._id)) {
     req.flash("error", "You do not have permission to delete this review.");
     return res.redirect(`/listings/${id}`);
   }

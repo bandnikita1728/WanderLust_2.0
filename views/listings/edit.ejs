@@ -1,14 +1,24 @@
 <% layout("layouts/boilerplate") %>
 <div class="row mt-4 mb-5">
   <div class="col-md-8 offset-md-2 col-12">
-    <h2 class="fw-bold mb-4 text-dark">Modify Spot Details</h2>
+    <h2 class="fw-bold mb-4 text-dark"><i class="fa-solid fa-pen-to-square text-danger me-2"></i>Modify Spot Details</h2>
     
-    <div class="card border-0 shadow-sm p-4 rounded-4">
+    <div class="card border-0 shadow-sm p-4 rounded-4 bg-white">
+      <!-- Image Preview Section -->
+      <div class="mb-4 text-center">
+        <p class="text-secondary fw-semibold text-start">Current Image Preview</p>
+        <img src="<%= listing.image && listing.image.url ? listing.image.url : 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1000' %>" 
+             class="img-thumbnail rounded-3 shadow-sm mx-auto d-block" 
+             style="height: 200px; object-fit: cover; max-width: 100%;" 
+             alt="<%= listing.title %>">
+      </div>
+
+      <!-- Edit Form - Method override PUT -->
       <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
         
         <div class="mb-3">
           <label for="title" class="form-label fw-semibold text-secondary">Destination Title</label>
-          <input type="text" id="title" name="listing[title]" class="form-control" value="<%= listing.title %>" required>
+          <input type="text" id="title" name="listing[title]" class="form-control py-2" value="<%= listing.title %>" required>
           <div class="invalid-feedback">Please enter a charming name for your location.</div>
         </div>
 
@@ -21,13 +31,13 @@
         <div class="row g-3 mb-3">
           <div class="col-md-6 col-12">
             <label for="location" class="form-label fw-semibold text-secondary">City / Region</label>
-            <input type="text" id="location" name="listing[location]" class="form-control" value="<%= listing.location %>" required>
-            <div class="invalid-feedback">Please provide a valid city structure.</div>
+            <input type="text" id="location" name="listing[location]" class="form-control py-2" value="<%= listing.location %>" required>
+            <div class="invalid-feedback">Please provide a valid city/region.</div>
           </div>
           <div class="col-md-6 col-12">
             <label for="country" class="form-label fw-semibold text-secondary">Country</label>
-            <input type="text" id="country" name="listing[country]" class="form-control" value="<%= listing.country %>" required>
-            <div class="invalid-feedback">Please enter the host country name.</div>
+            <input type="text" id="country" name="listing[country]" class="form-control py-2" value="<%= listing.country %>" required>
+            <div class="invalid-feedback">Please enter the country.</div>
           </div>
         </div>
 
@@ -36,19 +46,21 @@
             <label for="price" class="form-label fw-semibold text-secondary">Price (INR / Night)</label>
             <div class="input-group">
               <span class="input-group-text bg-light">₹</span>
-              <input type="number" id="price" name="listing[price]" min="1" class="form-control" value="<%= listing.price %>" required>
-              <div class="invalid-feedback">A price greater than 0 is required.</div>
+              <input type="number" id="price" name="listing[price]" min="1" class="form-control py-2" value="<%= listing.price %>" required>
+              <div class="invalid-feedback">Please input a valid price greater than 0.</div>
             </div>
           </div>
           <div class="col-md-6 col-12">
-            <label for="image" class="form-label fw-semibold text-secondary">Hero Image (Direct URL)</label>
-            <input type="url" id="image" name="listing[image][url]" class="form-control" value="<%= listing.image ? listing.image.url : '' %>">
+            <label for="image" class="form-label fw-semibold text-secondary">Hero Image (New Direct URL Override)</label>
+            <input type="url" id="image" name="listing[image][url]" class="form-control py-2" value="<%= listing.image ? listing.image.url : '' %>">
           </div>
         </div>
 
         <div class="d-flex gap-2">
-          <button class="btn btn-danger px-5 py-2 rounded-pill shadow-sm">Save Changes</button>
-          <a href="/listings/<%= listing._id %>" class="btn btn-outline-secondary px-4 py-2 rounded-pill">Cancel</a>
+          <button type="submit" class="btn btn-danger px-5 py-2 rounded-pill shadow-sm fw-bold">
+            <i class="fa-solid fa-floppy-disk me-1"></i>Update Listing
+          </button>
+          <a href="/listings/<%= listing._id %>" class="btn btn-outline-secondary px-4 py-2 rounded-pill fw-bold">Cancel</a>
         </div>
 
       </form>
