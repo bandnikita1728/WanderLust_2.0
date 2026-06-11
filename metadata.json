@@ -1,0 +1,6 @@
+{
+  "name": "WanderLust",
+  "description": "A full-stack Airbnb-clone web application built with Express, EJS, and Mongoose.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
